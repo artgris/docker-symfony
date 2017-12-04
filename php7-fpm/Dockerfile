@@ -28,7 +28,6 @@ RUN "date"
 RUN docker-php-ext-install pdo pdo_mysql zip mbstring intl opcache
 
 RUN apt-get install -y \
-
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng12-dev \
@@ -57,4 +56,4 @@ RUN echo "opcache.max_accelerated_files = 20000" >> /usr/local/etc/php/conf.d/do
 RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
 
-WORKDIR /var/www/symfony
+WORKDIR /var/www

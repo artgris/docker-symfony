@@ -4,12 +4,12 @@ services:
     mailhog:
       image: blueimp/mailhog
       ports:
-        - "1025:1025"
-        - "8025:8025"
+        - 1025:1025
+        - ${PORT_MAILHOG}:8025
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:
-            - "8080:80"
+            - ${PORT_PHPMYADMIN}:80
     db:
         image: mysql
         volumes:
@@ -25,12 +25,13 @@ services:
             args:
                 TIMEZONE: ${TIMEZONE}
         volumes:
-            - ${SYMFONY_APP_PATH}:/var/www/symfony
-            - ./logs/symfony:/var/www/symfony/var/logs
+            - ${SYMFONY_APP_PATH}:/var/www
+            - ${SYMFONY_APP_PATH}/.composer:/.composer
+#            - ./logs/symfony:/var/www/symfony/var/logs
     nginx:
         build: nginx
         ports:
-            - 80:80
+            - ${PORT_NGNIX}:80
         volumes_from:
             - php
         volumes:
@@ -38,7 +39,7 @@ services:
     elk:
         image: willdurand/elk
         ports:
-            - 81:80
+            - ${PORT_ELK}:80
         volumes:
             - ./elk/logstash:/etc/logstash
             - ./elk/logstash/patterns:/opt/logstash/patterns

@@ -1,21 +1,13 @@
-CMD=docker-compose exec php
+CMD=docker-compose
+RUN=$(CMD) run --rm php
+
+install: build up
 
 bash:
-	$(CMD) bash
+	$(RUN) bash
 
-install: docker cache
+build:
+	$(CMD) build
 
-docker:
-	- docker-compose build
-	- docker-compose up -d
-
-composer:
-	- $(CMD) composer install
-	- $(CMD) php bin/console doctrine:database:create
-	- $(CMD) php bin/console  doctrine:schema:update --force
-
-fixt:
-	$(CMD) php bin/console  doctrine:fixtures:load --no-interaction
-
-cache:
-	$(CMD) chmod -R 777 var/cache var/logs web/cache
+up:
+	$(CMD) up -d
