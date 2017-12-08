@@ -55,5 +55,8 @@ RUN echo "opcache.max_accelerated_files = 20000" >> /usr/local/etc/php/conf.d/do
 
 RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
+RUN usermod --non-unique --uid 1000 www-data \
+  && groupmod --non-unique --gid 1000 www-data \
+  && chown -R www-data:www-data /var/www
 
 WORKDIR /var/www
