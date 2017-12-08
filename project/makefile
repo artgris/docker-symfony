@@ -1,8 +1,6 @@
-CMD=docker-compose
-EXEC = $(CMD) exec
-RUN=$(CMD) run --rm php
-EXEC =  $(CMD) exec --user www-data:www-data php
-
+CD = cd ../../docker-symfony && docker-compose exec
+EXECROOT = $(CD) php sh -c 'cd project && '
+EXEC =  $(CD) --user www-data:www-data php sh -c 'cd project && '
 CON = $(EXEC)'php bin/console '
 
 bash:
@@ -11,13 +9,27 @@ bash:
 bashroot:
 	$(EXECROOT)'bash'
 
-install: build up
+perm:
+	- $(EXECROOT)'chown -R www-data: .'
+#	- $(EXECROOT)'chmod -R 777 var/www/.composer'
+#	- $(EXECROOT)'chmod -R 777 var/cache var/log'
+c:
+	$(CON)'$(c)'
 
-bash:
-	$(RUN) bash
+cc:
+	$(CON)'c:c'
 
-build:
-	$(CMD) build
+ddc:
+	$(CON)'doctrine:database:create'
 
-up:
-	$(CMD) up -d
+dfl:
+	$(CON)'doctrine:fixtures:load -n'
+
+dsu:
+	$(CON)'d:s:u --force'
+
+ci:
+	$(EXEC)'composer install'
+
+tu:
+	$(EXEC)'vendor/bin/phpunit'
