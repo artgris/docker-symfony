@@ -3,13 +3,11 @@ EXEC = $(CMD) exec
 RUN=$(CMD) run --rm php
 EXEC =  $(CMD) exec --user www-data:www-data php
 
+
 CON = $(EXEC)'php bin/console '
 
 bash:
 	$(EXEC)'bash'
-
-bashroot:
-	$(EXECROOT)'bash'
 
 install: build up
 
@@ -21,3 +19,6 @@ build:
 
 up:
 	$(CMD) up -d
+
+down:
+	$(CMD) down
