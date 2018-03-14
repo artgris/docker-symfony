@@ -1,0 +1,10 @@
+database_host: db
+database_port: 3306
+database_name: lol
+database_user: root
+database_password: root
+mailer_transport: smtp
+mailer_host: mailhog
+mailer_user: art
+mailer_password: art
+mailer_port: 1025
