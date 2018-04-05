@@ -53,6 +53,10 @@ dsv:
 npm:
 	$(EXEC)'npm install'
 
+#yarn
+yarn:
+	$(EXEC)'yarn install'
+
 #test
 tu:
 	$(EXEC)'vendor/bin/phpunit'
