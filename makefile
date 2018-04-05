@@ -22,3 +22,7 @@ up:
 
 down:
 	$(CMD) down
+
+reboot:
+	- $(CMD) down
+	- $(CMD) up -d
