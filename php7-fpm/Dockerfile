@@ -1,5 +1,5 @@
 # See https://github.com/docker-library/php/blob/master/7.1/fpm/Dockerfile
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 ARG TIMEZONE
 
 MAINTAINER Maxence POUTORD <maxence.poutord@gmail.com>
@@ -16,11 +16,10 @@ RUN apt-get update && apt-get install -y \
     unzip \
     wkhtmltopdf \
     xvfb \
-    npm \
     sudo
 
-
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+RUN apt-get install -my wget gnupg
+RUN curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 RUN apt-get install -y nodejs
 
 # install yarn
@@ -38,12 +37,12 @@ RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/con
 RUN "date"
 
 # Type docker-php-ext-install to see available extensions
-RUN docker-php-ext-install pdo pdo_mysql zip mbstring intl opcache
+RUN docker-php-ext-install pdo pdo_mysql mbstring intl opcache
 
 RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libpng12-dev \
+        libpng-dev \
      && docker-php-ext-configure gd \
           --enable-gd-native-ttf \
           --with-freetype-dir=/usr/include/freetype2 \
